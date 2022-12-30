@@ -185,10 +185,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-12-26 10:07:31 / 修改时间：11:02:49" itemprop="dateCreated datePublished" datetime="2022-12-26T10:07:31+08:00">2022-12-26</time>
+              <time title="创建时间：2022-12-26 10:07:31" itemprop="dateCreated datePublished" datetime="2022-12-26T10:07:31+08:00">2022-12-26</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-30 15:39:55" itemprop="dateModified" datetime="2022-12-30T15:39:55+08:00">2022-12-30</time>
+              </span>
 
           
 
@@ -201,7 +207,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h1 id="内存结构"><a href="#内存结构" class="headerlink" title="内存结构"></a>内存结构</h1><h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><p><img src="C:\Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221223194804150.png" alt="image-20221223194804150"></p>
+          <h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h1 id="内存结构"><a href="#内存结构" class="headerlink" title="内存结构"></a>内存结构</h1><h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><p><img src="jvm1.png"></p>
 <p>定义</p>
 <p>Porgram Counter Register程序计数器（物理上通过寄存器实现）</p>
 <ul>
@@ -257,8 +263,8 @@
 <p>​    案例</p>
 <p>垃圾回收后，内存占用仍然很高</p>
 <p>​    -可以配合jvisualvm查看堆内存详细信息判断问题</p>
-<h2 id="方法区（Method-Area）"><a href="#方法区（Method-Area）" class="headerlink" title="方法区（Method Area）"></a>方法区（Method Area）</h2><p><img src="C:\Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221224152559505.png" alt="image-20221224152559505"></p>
-<p><img src="C:\Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221224152614501.png" alt="image-20221224152614501"></p>
+<h2 id="方法区（Method-Area）"><a href="#方法区（Method-Area）" class="headerlink" title="方法区（Method Area）"></a>方法区（Method Area）</h2><p><img src="jvm2.png"></p>
+<p><img src="jvm3.png"></p>
 <p>方法区内存溢出</p>
 <ul>
 <li><p>1.8 以前会导致永久代内存溢出、</p>
@@ -358,20 +364,20 @@
 <li>速度较快</li>
 <li>会造成内存碎片</li>
 </ul>
-<p><img src="C:\Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221225155320173.png" alt="image-20221225155320173"></p>
+<p><img src="Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221225155320173.png" alt="image-20221225155320173"></p>
 <h3 id="2、标记整理"><a href="#2、标记整理" class="headerlink" title="2、标记整理"></a>2、标记整理</h3><p>定义：Mark Compact</p>
 <ul>
 <li>速度慢</li>
 <li>没有内存碎片</li>
 </ul>
-<p><img src="C:\Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221225155353733.png" alt="image-20221225155353733"></p>
+<p><img src="Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221225155353733.png" alt="image-20221225155353733"></p>
 <h3 id="3、复制"><a href="#3、复制" class="headerlink" title="3、复制"></a>3、复制</h3><p>定义：Copy</p>
 <ul>
 <li>不会有内存碎片</li>
 <li>需要占用双倍内存空间</li>
 </ul>
-<p><img src="C:\Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221225155438032.png" alt="image-20221225155438032"></p>
-<h2 id="分代垃圾回收"><a href="#分代垃圾回收" class="headerlink" title="分代垃圾回收"></a>分代垃圾回收</h2><p><img src="C:\Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221225155641490.png" alt="image-20221225155641490"></p>
+<p><img src="Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221225155438032.png" alt="image-20221225155438032"></p>
+<h2 id="分代垃圾回收"><a href="#分代垃圾回收" class="headerlink" title="分代垃圾回收"></a>分代垃圾回收</h2><p><img src="Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221225155641490.png" alt="image-20221225155641490"></p>
 <ul>
 <li>对象首先分配在伊甸园区域</li>
 <li>新生代空间不足时，触发 minor gc，伊甸园和 from 存活的对象使用 copy 复制到 to 中，存活的对象年龄加 1并且交换 from to</li>
@@ -379,7 +385,7 @@
 <li>当对象寿命超过阈值时，会晋升至老年代，最大寿命是15（4bit）</li>
 <li>当老年代空间不足，会先尝试触发 minor gc，如果之后空间仍不足，那么触发 full gc，STW的时间更长</li>
 </ul>
-<h3 id="相关vm参数"><a href="#相关vm参数" class="headerlink" title="相关vm参数"></a>相关vm参数</h3><p><img src="C:\Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221225155745122.png" alt="image-20221225155745122"></p>
+<h3 id="相关vm参数"><a href="#相关vm参数" class="headerlink" title="相关vm参数"></a>相关vm参数</h3><p><img src="Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221225155745122.png" alt="image-20221225155745122"></p>
 
       
     </div>
@@ -430,7 +436,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-30 15:17:17" itemprop="dateModified" datetime="2022-12-30T15:17:17+08:00">2022-12-30</time>
+                <time title="修改时间：2022-12-30 15:34:53" itemprop="dateModified" datetime="2022-12-30T15:34:53+08:00">2022-12-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -466,6 +472,7 @@
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p><img src="./images/%E6%B5%8B%E8%AF%95.png"></p>
 
       
     </div>
