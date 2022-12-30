@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="JVM内存结构程序计数器 定义 Porgram Counter Register程序计数器（物理上通过寄存器实现）  作用：记住下一条jvm指令的执行地址 特点 是线程私有的 不会存在内存溢出    虚拟机栈定义 Java Virtual Machine Stachs（全称：java虚拟机栈）  每个线程运行时所需要的内存，成为虚拟机栈 每个栈有多个栈帧（Frame）组成，对应着每次方法调用时所占">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM学习笔记">
+<meta property="og:url" content="http://example.com/2022/12/26/jvm/index.html">
+<meta property="og:site_name" content="Chat">
+<meta property="og:description" content="JVM内存结构程序计数器 定义 Porgram Counter Register程序计数器（物理上通过寄存器实现）  作用：记住下一条jvm指令的执行地址 特点 是线程私有的 不会存在内存溢出    虚拟机栈定义 Java Virtual Machine Stachs（全称：java虚拟机栈）  每个线程运行时所需要的内存，成为虚拟机栈 每个栈有多个栈帧（Frame）组成，对应着每次方法调用时所占">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:/Users/20247/AppData/Roaming/Typora/typora-user-images/image-20221223194804150.png">
+<meta property="og:image" content="c:/Users/20247/AppData/Roaming/Typora/typora-user-images/image-20221224152559505.png">
+<meta property="og:image" content="c:/Users/20247/AppData/Roaming/Typora/typora-user-images/image-20221224152614501.png">
+<meta property="og:image" content="c:/Users/20247/AppData/Roaming/Typora/typora-user-images/image-20221225155320173.png">
+<meta property="og:image" content="c:/Users/20247/AppData/Roaming/Typora/typora-user-images/image-20221225155353733.png">
+<meta property="og:image" content="c:/Users/20247/AppData/Roaming/Typora/typora-user-images/image-20221225155438032.png">
+<meta property="og:image" content="c:/Users/20247/AppData/Roaming/Typora/typora-user-images/image-20221225155641490.png">
+<meta property="og:image" content="c:/Users/20247/AppData/Roaming/Typora/typora-user-images/image-20221225155745122.png">
+<meta property="article:published_time" content="2022-12-26T02:07:31.160Z">
+<meta property="article:modified_time" content="2022-12-26T03:02:49.954Z">
+<meta property="article:author" content="WH">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/20247/AppData/Roaming/Typora/typora-user-images/image-20221223194804150.png">
+
+<link rel="canonical" href="http://example.com/2022/12/26/jvm/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>JVM学习笔记 | Chat</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Chat</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/26/jvm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="WH">
+      <meta itemprop="description" content="一个用于记录笔记的博客网站">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chat">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JVM学习笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-26 10:07:31 / 修改时间：11:02:49" itemprop="dateCreated datePublished" datetime="2022-12-26T10:07:31+08:00">2022-12-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h1 id="内存结构"><a href="#内存结构" class="headerlink" title="内存结构"></a>内存结构</h1><h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><p><img src="C:\Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221223194804150.png" alt="image-20221223194804150"></p>
+<p>定义</p>
+<p>Porgram Counter Register程序计数器（物理上通过寄存器实现）</p>
+<ul>
+<li>作用：记住下一条jvm指令的执行地址</li>
+<li>特点<ul>
+<li>是线程私有的</li>
+<li>不会存在内存溢出</li>
+</ul>
+</li>
+</ul>
+<h2 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h2><p>定义</p>
+<p>Java Virtual Machine Stachs（全称：java虚拟机栈）</p>
+<ul>
+<li>每个线程运行时所需要的内存，成为虚拟机栈</li>
+<li>每个栈有多个栈帧（Frame）组成，对应着每次方法调用时所占用的内存</li>
+<li>每个线程只能有一个活动栈帧，对应着当前正在执行的方法</li>
+</ul>
+<p>问题辨析：</p>
+<p>​    1.垃圾回收是否涉及栈内存？</p>
+<p>​        -不会，栈内存是方法运行时所占用的内存，方法运行结束会自行释放，不需要垃圾回收机制管理</p>
+<p>​    2.栈内存分配越大越好吗？</p>
+<p>​        -并不是，栈内存如果过大反而会使线程运行数目变少</p>
+<p>​    3.方法内的局部变量是否线程安全？</p>
+<p>​        -如果该变量没有逃离方法的作用范围，则线程安全，反之，需要考虑线程安全问题</p>
+<p>栈内存溢出：</p>
+<ul>
+<li>栈帧过多导致溢出</li>
+<li>栈帧过大导致溢出</li>
+</ul>
+<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>给本地方法的运行提供运行的空间</p>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>定义</p>
+<p>Heap堆</p>
+<ul>
+<li>通过new关键字，创建对象都会使用堆内存</li>
+</ul>
+<p>特点</p>
+<ul>
+<li>它是线程共享的，堆中对象都需要考虑线程安全的问题</li>
+<li>有垃圾回收机制</li>
+</ul>
+<h3 id="堆内存溢出"><a href="#堆内存溢出" class="headerlink" title="堆内存溢出"></a>堆内存溢出</h3><h3 id="堆内存诊断"><a href="#堆内存诊断" class="headerlink" title="堆内存诊断"></a><strong>堆内存诊断</strong></h3><ul>
+<li>jps 工具</li>
+</ul>
+<p>查看当前系统中有哪些 java 进程</p>
+<ul>
+<li>jmap 工具</li>
+</ul>
+<p>查看堆内存占用情况 jmap - heap 进程id</p>
+<ul>
+<li>jconsole 工具</li>
+</ul>
+<p>图形界面的，多功能的监测工具，可以连续监测</p>
+<p>​    案例</p>
+<p>垃圾回收后，内存占用仍然很高</p>
+<p>​    -可以配合jvisualvm查看堆内存详细信息判断问题</p>
+<h2 id="方法区（Method-Area）"><a href="#方法区（Method-Area）" class="headerlink" title="方法区（Method Area）"></a>方法区（Method Area）</h2><p><img src="C:\Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221224152559505.png" alt="image-20221224152559505"></p>
+<p><img src="C:\Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221224152614501.png" alt="image-20221224152614501"></p>
+<p>方法区内存溢出</p>
+<ul>
+<li><p>1.8 以前会导致永久代内存溢出、</p>
+<ul>
+<li>演示永久代内存溢出 java.lang.OutOfMemoryError: PermGen space </li>
+<li>-XX:MaxPermSize=8m</li>
+</ul>
+</li>
+<li><p>1.8 之后会导致元空间内存溢出</p>
+<ul>
+<li>演示元空间内存溢出 java.lang.OutOfMemoryError: Metaspace </li>
+<li>-XX:MaxMetaspaceSize=8m</li>
+</ul>
+</li>
+</ul>
+<h3 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h3><ul>
+<li>常量池，就是一张表，虚拟机指令根据这张常量表找到要执行的类名、方法名、参数类型、字面量</li>
+</ul>
+<p>等信息</p>
+<ul>
+<li>运行时常量池，常量池是 *.class 文件中的，当该类被加载，它的常量池信息就会放入运行时常量</li>
+</ul>
+<p>池，并把里面的符号地址变为真实地址</p>
+<h3 id="StringTable-特性"><a href="#StringTable-特性" class="headerlink" title="StringTable 特性"></a><strong>StringTable</strong> <strong>特性</strong></h3><ul>
+<li>常量池中的字符串仅是符号，第一次用到时才变为对象</li>
+<li>利用串池的机制，来避免重复创建字符串对象</li>
+<li>字符串变量拼接的原理是 StringBuilder （1.8）</li>
+<li>字符串常量拼接的原理是编译期优化</li>
+<li>可以使用 intern 方法，主动将串池中还没有的字符串对象放入串池<ul>
+<li>1.8 将这个字符串对象尝试放入串池，如果有则并不会放入，如果没有则放入串池， 会把串池中的对象返回</li>
+<li>1.6 将这个字符串对象尝试放入串池，如果有则并不会放入，如果没有会把此对象复制一份，</li>
+</ul>
+</li>
+</ul>
+<p>​               放入串池， 会把串池中的对象返回</p>
+<h2 id="直接内存"><a href="#直接内存" class="headerlink" title="直接内存"></a>直接内存</h2><p>定义</p>
+<p>Direct Memory</p>
+<ul>
+<li>常见于NIO操作时，用于数据缓冲区</li>
+<li>分配回收成本较高，但读写性能高</li>
+<li>不受JVM内存回收管理</li>
+</ul>
+<h3 id="分配和回收原理"><a href="#分配和回收原理" class="headerlink" title="分配和回收原理"></a>分配和回收原理</h3><ul>
+<li>使用了Unsafe对象完成直接内存的分配回收，并且回收需要主动调用 freeMemory方法</li>
+<li>ByteBuffer 的实现类内部，使用了 Cleaner （虚引用）来监测 ByteBuffer 对象，一旦 ByteBuffer 对象被垃圾回收，那么就会由 ReferenceHandler 线程通过 Cleaner 的 clean 方法调用 freeMemory 来释放直接内存</li>
+</ul>
+<h1 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h1><h2 id="如何判断对象可以回收"><a href="#如何判断对象可以回收" class="headerlink" title="如何判断对象可以回收"></a>如何判断对象可以回收</h2><p>1.引用计数法</p>
+<p>2.可达性分析算法</p>
+<ul>
+<li><p>Java 虚拟机中的垃圾回收器采用可达性分析来探索所有存活的对象</p>
+</li>
+<li><p>扫描堆中的对象，看是否能够沿着 GC Root对象 为起点的引用链找到该对象，找不到，表示可以</p>
+<p>回收</p>
+</li>
+</ul>
+<h2 id="几种引用"><a href="#几种引用" class="headerlink" title="几种引用"></a>几种引用</h2><ol>
+<li>强引用</li>
+</ol>
+<ul>
+<li>只有所有 GC Roots 对象都不通过【强引用】引用该对象，该对象才能被垃圾回收</li>
+</ul>
+<ol start="2">
+<li>软引用（SoftReference）</li>
+</ol>
+<ul>
+<li>仅有软引用引用该对象时，在垃圾回收后，内存仍不足时会再次出发垃圾回收，回收软引用对象</li>
+<li>可以配合引用队列来释放软引用自身</li>
+</ul>
+<ol start="3">
+<li>弱引用（WeakReference）</li>
+</ol>
+<ul>
+<li><p>仅有弱引用引用该对象时，在垃圾回收时，无论内存是否充足，都会回收弱引用对象</p>
+</li>
+<li><p>可以配合引用队列来释放弱引用自身</p>
+</li>
+</ul>
+<ol start="4">
+<li>虚引用（PhantomReference）</li>
+</ol>
+<ul>
+<li><p>必须配合引用队列使用，主要配合 ByteBuffer 使用，被引用对象回收时，会将虚引用入队，</p>
+<p>由 Reference Handler 线程调用虚引用相关方法释放直接内存</p>
+</li>
+</ul>
+<ol start="5">
+<li>终结器引用（FinalReference）</li>
+</ol>
+<ul>
+<li><p>无需手动编码，但其内部配合引用队列使用，在垃圾回收时，终结器引用入队（被引用对象</p>
+<p>暂时没有被回收），再由 Finalizer 线程通过终结器引用找到被引用对象并调用它的 fifinalize</p>
+<p>方法，第二次 GC 时才能回收被引用对象</p>
+</li>
+</ul>
+<h2 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h2><h3 id="1、标记清除"><a href="#1、标记清除" class="headerlink" title="1、标记清除"></a>1、标记清除</h3><p>定义：Mark Sweep</p>
+<ul>
+<li>速度较快</li>
+<li>会造成内存碎片</li>
+</ul>
+<p><img src="C:\Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221225155320173.png" alt="image-20221225155320173"></p>
+<h3 id="2、标记整理"><a href="#2、标记整理" class="headerlink" title="2、标记整理"></a>2、标记整理</h3><p>定义：Mark Compact</p>
+<ul>
+<li>速度慢</li>
+<li>没有内存碎片</li>
+</ul>
+<p><img src="C:\Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221225155353733.png" alt="image-20221225155353733"></p>
+<h3 id="3、复制"><a href="#3、复制" class="headerlink" title="3、复制"></a>3、复制</h3><p>定义：Copy</p>
+<ul>
+<li>不会有内存碎片</li>
+<li>需要占用双倍内存空间</li>
+</ul>
+<p><img src="C:\Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221225155438032.png" alt="image-20221225155438032"></p>
+<h2 id="分代垃圾回收"><a href="#分代垃圾回收" class="headerlink" title="分代垃圾回收"></a>分代垃圾回收</h2><p><img src="C:\Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221225155641490.png" alt="image-20221225155641490"></p>
+<ul>
+<li>对象首先分配在伊甸园区域</li>
+<li>新生代空间不足时，触发 minor gc，伊甸园和 from 存活的对象使用 copy 复制到 to 中，存活的对象年龄加 1并且交换 from to</li>
+<li>minor gc 会引发 stop the world，暂停其它用户的线程，等垃圾回收结束，用户线程才恢复运行</li>
+<li>当对象寿命超过阈值时，会晋升至老年代，最大寿命是15（4bit）</li>
+<li>当老年代空间不足，会先尝试触发 minor gc，如果之后空间仍不足，那么触发 full gc，STW的时间更长</li>
+</ul>
+<h3 id="相关vm参数"><a href="#相关vm参数" class="headerlink" title="相关vm参数"></a>相关vm参数</h3><p><img src="C:\Users\20247\AppData\Roaming\Typora\typora-user-images\image-20221225155745122.png" alt="image-20221225155745122"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/12/25/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM"><span class="nav-number">1.</span> <span class="nav-text">JVM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">内存结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">程序计数器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88"><span class="nav-number">2.2.</span> <span class="nav-text">虚拟机栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88"><span class="nav-number">2.3.</span> <span class="nav-text">本地方法栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86"><span class="nav-number">2.4.</span> <span class="nav-text">堆</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA"><span class="nav-number">2.4.1.</span> <span class="nav-text">堆内存溢出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD"><span class="nav-number">2.4.2.</span> <span class="nav-text">堆内存诊断</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA%EF%BC%88Method-Area%EF%BC%89"><span class="nav-number">2.5.</span> <span class="nav-text">方法区（Method Area）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="nav-number">2.5.1.</span> <span class="nav-text">运行时常量池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringTable-%E7%89%B9%E6%80%A7"><span class="nav-number">2.5.2.</span> <span class="nav-text">StringTable 特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%86%85%E5%AD%98"><span class="nav-number">2.6.</span> <span class="nav-text">直接内存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E5%92%8C%E5%9B%9E%E6%94%B6%E5%8E%9F%E7%90%86"><span class="nav-number">2.6.1.</span> <span class="nav-text">分配和回收原理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">3.</span> <span class="nav-text">垃圾回收</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E5%8F%AF%E4%BB%A5%E5%9B%9E%E6%94%B6"><span class="nav-number">3.1.</span> <span class="nav-text">如何判断对象可以回收</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%A0%E7%A7%8D%E5%BC%95%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">几种引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">垃圾回收算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4"><span class="nav-number">3.3.1.</span> <span class="nav-text">1、标记清除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86"><span class="nav-number">3.3.2.</span> <span class="nav-text">2、标记整理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%A4%8D%E5%88%B6"><span class="nav-number">3.3.3.</span> <span class="nav-text">3、复制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E4%BB%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">3.4.</span> <span class="nav-text">分代垃圾回收</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3vm%E5%8F%82%E6%95%B0"><span class="nav-number">3.4.1.</span> <span class="nav-text">相关vm参数</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">WH</p>
+  <div class="site-description" itemprop="description">一个用于记录笔记的博客网站</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WH</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
