@@ -281,7 +281,7 @@
   <entry>
     <title>JVM学习笔记</title>
     <url>/2022/12/26/jvm/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="jvm1.png"></p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><image src="https://pic1.zhimg.com/80/v2-bf438382f881edb81d49a2ddb8888d68_1440w.webp"></image></p>
 <span id="more"></span>
 
 <h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h1 id="内存结构"><a href="#内存结构" class="headerlink" title="内存结构"></a>内存结构</h1><h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><p><img src="jvm1.png"></p>
@@ -476,6 +476,7 @@
     <url>/2022/12/31/%E4%B9%8C%E6%8B%89/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">乌拉，小站建成！🐖</span><br></pre></td></tr></table></figure>
 
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="110" src="//music.163.com/outchain/player?type=2&id=1366467511&auto=1&height=90"></iframe>
 ]]></content>
       <categories>
         <category>心情</category>
