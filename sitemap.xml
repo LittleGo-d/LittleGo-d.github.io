@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/2023/01/01/FirstDay/</loc>
+    <loc>http://blog.v-a-n-h.top/2023/01/01/FirstDay/</loc>
     
     <lastmod>2023-01-01</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2022/12/31/%E6%94%B6%E8%8E%B7/</loc>
+    <loc>http://blog.v-a-n-h.top/2022/12/31/%E6%94%B6%E8%8E%B7/</loc>
     
     <lastmod>2022-12-31</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2022/12/31/%E4%B9%8C%E6%8B%89/</loc>
+    <loc>http://blog.v-a-n-h.top/2022/12/31/%E4%B9%8C%E6%8B%89/</loc>
     
     <lastmod>2022-12-31</lastmod>
     
@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2022/12/31/lastday/</loc>
+    <loc>http://blog.v-a-n-h.top/2022/12/31/lastday/</loc>
     
     <lastmod>2022-12-31</lastmod>
     
@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2022/12/31/NewYear/</loc>
+    <loc>http://blog.v-a-n-h.top/2022/12/31/NewYear/</loc>
     
     <lastmod>2022-12-31</lastmod>
     
@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/about/index.html</loc>
+    <loc>http://blog.v-a-n-h.top/about/index.html</loc>
     
     <lastmod>2022-12-31</lastmod>
     
@@ -56,7 +56,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/music/index.html</loc>
+    <loc>http://blog.v-a-n-h.top/music/index.html</loc>
     
     <lastmod>2022-12-31</lastmod>
     
@@ -65,7 +65,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/index.html</loc>
+    <loc>http://blog.v-a-n-h.top/tags/index.html</loc>
     
     <lastmod>2022-12-30</lastmod>
     
@@ -74,7 +74,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/index.html</loc>
+    <loc>http://blog.v-a-n-h.top/categories/index.html</loc>
     
     <lastmod>2022-12-30</lastmod>
     
@@ -84,7 +84,7 @@
   
 
   <url>
-    <loc>http://example.com/</loc>
+    <loc>http://blog.v-a-n-h.top/</loc>
     <lastmod>2023-01-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -92,7 +92,7 @@
 
   
   <url>
-    <loc>http://example.com/tags/%E6%97%A5%E5%BF%97/</loc>
+    <loc>http://blog.v-a-n-h.top/tags/%E6%97%A5%E5%BF%97/</loc>
     <lastmod>2023-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -101,7 +101,7 @@
 
   
   <url>
-    <loc>http://example.com/categories/%E5%BF%83%E6%83%85/</loc>
+    <loc>http://blog.v-a-n-h.top/categories/%E5%BF%83%E6%83%85/</loc>
     <lastmod>2023-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
