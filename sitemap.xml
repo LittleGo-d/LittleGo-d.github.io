@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://littlego-d.github.io/2023/02/01/%E6%97%A0%E4%BA%8B%E5%8F%91%E7%94%9F/</loc>
+    
+    <lastmod>2023-02-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://littlego-d.github.io/2023/01/02/%E5%A3%AB%E5%85%B5%E7%AA%81%E5%87%BB/</loc>
     
     <lastmod>2023-01-02</lastmod>
@@ -94,7 +103,7 @@
 
   <url>
     <loc>http://littlego-d.github.io/</loc>
-    <lastmod>2023-01-03</lastmod>
+    <lastmod>2023-02-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -102,7 +111,7 @@
   
   <url>
     <loc>http://littlego-d.github.io/tags/%E6%97%A5%E5%BF%97/</loc>
-    <lastmod>2023-01-03</lastmod>
+    <lastmod>2023-02-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -111,7 +120,7 @@
   
   <url>
     <loc>http://littlego-d.github.io/categories/%E5%BF%83%E6%83%85/</loc>
-    <lastmod>2023-01-03</lastmod>
+    <lastmod>2023-02-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
