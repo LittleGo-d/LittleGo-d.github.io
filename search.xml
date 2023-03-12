@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>乌拉</title>
-    <url>/2022/12/31/%E4%B9%8C%E6%8B%89/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="乌拉，小站建成！🐖"><a href="#乌拉，小站建成！🐖" class="headerlink" title="乌拉，小站建成！🐖"></a>乌拉，小站建成！🐖</h2><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="110" src="//music.163.com/outchain/player?type=2&id=1366467511&auto=0&height=90"></iframe>
-]]></content>
-      <categories>
-        <category>心情</category>
-      </categories>
-      <tags>
-        <tag>日志</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>爬楼梯</title>
     <url>/2023/03/09/LeetCode_70/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><strong>动态规划：</strong></p>
@@ -32,23 +20,15 @@
       </tags>
   </entry>
   <entry>
-    <title>爬楼梯</title>
-    <url>/2023/03/10/%E6%9C%80%E5%A4%A7%E5%82%A8%E6%B0%B4%E9%87%8F/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><strong>动态规划：</strong></p>
-<image src="http://rr9ei3yvu.hn-bkt.clouddn.com/%E6%9C%80%E5%A4%A7%E5%82%A8%E6%B0%B4%E9%87%8F.png">
-
-<span id="more"></span>
-
-<p>**双指针    **</p>
-<p>分别指向数组的两端，每次都把更小的向中间移动一个，并更新最大值，直到指针相遇，循环结束</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxArea</span><span class="params">(<span class="type">int</span>[] height)</span> &#123;</span><br><span class="line">        <span class="comment">//容量就是底乘高  底就是索引之差，高度就是两者之间较小的那个</span></span><br><span class="line">        <span class="comment">//双指针 分别在数组两端，每次将更小的向内移动，每次更新最大值，知道两指针相遇，循环结束</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">area</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">p1</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">p2</span> <span class="operator">=</span> height.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(p1 != p2)&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">tem</span> <span class="operator">=</span> Math.min(height[p2],height[p1]) * (p2 - p1);</span><br><span class="line">            <span class="keyword">if</span>(tem &gt; area)&#123;</span><br><span class="line">                area = tem;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(height[p1] &lt;= height[p2])&#123;</span><br><span class="line">                p1++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                p2--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> area;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-</image>]]></content>
+    <title>乌拉</title>
+    <url>/2022/12/31/%E4%B9%8C%E6%8B%89/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="乌拉，小站建成！🐖"><a href="#乌拉，小站建成！🐖" class="headerlink" title="乌拉，小站建成！🐖"></a>乌拉，小站建成！🐖</h2><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="110" src="//music.163.com/outchain/player?type=2&id=1366467511&auto=0&height=90"></iframe>
+]]></content>
       <categories>
-        <category>算法</category>
+        <category>心情</category>
       </categories>
       <tags>
-        <tag>java</tag>
+        <tag>日志</tag>
       </tags>
   </entry>
   <entry>
@@ -61,6 +41,43 @@
 
 <p>题解：<a href="https://www.programmercarl.com/0017.%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E5%AD%97%E6%AF%8D%E7%BB%84%E5%90%88.html#java">代码随想录 (programmercarl.com)</a></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置全局列表存储最后的结果</span></span><br><span class="line">    List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> List&lt;String&gt; <span class="title function_">letterCombinations</span><span class="params">(String digits)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (digits == <span class="literal">null</span> || digits.length() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> list;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//初始对应所有的数字，为了直接对应2-9，新增了两个无效的字符串&quot;&quot;</span></span><br><span class="line">        String[] numString = &#123;<span class="string">&quot;&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="string">&quot;abc&quot;</span>, <span class="string">&quot;def&quot;</span>, <span class="string">&quot;ghi&quot;</span>, <span class="string">&quot;jkl&quot;</span>, <span class="string">&quot;mno&quot;</span>, <span class="string">&quot;pqrs&quot;</span>, <span class="string">&quot;tuv&quot;</span>, <span class="string">&quot;wxyz&quot;</span>&#125;;</span><br><span class="line">        <span class="comment">//迭代处理</span></span><br><span class="line">        backTracking(digits, numString, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//每次迭代获取一个字符串，所以会设计大量的字符串拼接，所以这里选择更为高效的 StringBuild</span></span><br><span class="line">    <span class="type">StringBuilder</span> <span class="variable">temp</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//比如digits如果为&quot;23&quot;,num 为0，则str表示2对应的 abc</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">backTracking</span><span class="params">(String digits, String[] numString, <span class="type">int</span> num)</span> &#123;</span><br><span class="line">        <span class="comment">//遍历全部一次记录一次得到的字符串</span></span><br><span class="line">        <span class="keyword">if</span> (num == digits.length()) &#123;</span><br><span class="line">            list.add(temp.toString());</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//str 表示当前num对应的字符串</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> numString[digits.charAt(num) - <span class="string">&#x27;0&#x27;</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; str.length(); i++) &#123;</span><br><span class="line">            temp.append(str.charAt(i));</span><br><span class="line">            <span class="comment">//c</span></span><br><span class="line">            backTracking(digits, numString, num + <span class="number">1</span>);</span><br><span class="line">            <span class="comment">//剔除末尾的继续尝试</span></span><br><span class="line">            temp.deleteCharAt(temp.length() - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</image>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>组合问题优化</title>
+    <url>/2023/03/12/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95-%E5%87%8F%E6%9E%9D/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><strong>回溯算法-减枝</strong></p>
+<p>题解：<a href="https://www.programmercarl.com/0077.%E7%BB%84%E5%90%88.html#%E5%89%AA%E6%9E%9D%E4%BC%98%E5%8C%96">代码随想录 (programmercarl.com)</a></p>
+<iframe src="//player.bilibili.com/player.html?aid=567387214&bvid=BV1Lv4y1e7HL&cid=1022132584&page=111" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//结果</span></span><br><span class="line">    List&lt;List&lt;Integer&gt;&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">combine</span><span class="params">(<span class="type">int</span> n , <span class="type">int</span> k)</span>&#123;</span><br><span class="line">        backTracking(n,k,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//小集合</span></span><br><span class="line">    List&lt;Integer&gt; path = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">backTracking</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k,<span class="type">int</span> startNum)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(path.size() == k)&#123;</span><br><span class="line">            result.add(<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(path));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> startNum;i &lt;= n - (k - path.size()) + <span class="number">1</span>; i++) &#123;</span><br><span class="line">            path.add(i);</span><br><span class="line">            backTracking(n,k    ,i + <span class="number">1</span>);</span><br><span class="line">            path.remove(path.size() - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>爬楼梯</title>
+    <url>/2023/03/10/%E6%9C%80%E5%A4%A7%E5%82%A8%E6%B0%B4%E9%87%8F/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><strong>动态规划：</strong></p>
+<image src="http://rr9ei3yvu.hn-bkt.clouddn.com/%E6%9C%80%E5%A4%A7%E5%82%A8%E6%B0%B4%E9%87%8F.png">
+
+<span id="more"></span>
+
+<p>**双指针    **</p>
+<p>分别指向数组的两端，每次都把更小的向中间移动一个，并更新最大值，直到指针相遇，循环结束</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxArea</span><span class="params">(<span class="type">int</span>[] height)</span> &#123;</span><br><span class="line">        <span class="comment">//容量就是底乘高  底就是索引之差，高度就是两者之间较小的那个</span></span><br><span class="line">        <span class="comment">//双指针 分别在数组两端，每次将更小的向内移动，每次更新最大值，知道两指针相遇，循环结束</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">area</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">p1</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">p2</span> <span class="operator">=</span> height.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(p1 != p2)&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">tem</span> <span class="operator">=</span> Math.min(height[p2],height[p1]) * (p2 - p1);</span><br><span class="line">            <span class="keyword">if</span>(tem &gt; area)&#123;</span><br><span class="line">                area = tem;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(height[p1] &lt;= height[p2])&#123;</span><br><span class="line">                p1++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                p2--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> area;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 </image>]]></content>
       <categories>
