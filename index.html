@@ -226,7 +226,7 @@ var _hmt = _hmt || [];
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/03/12/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95-%E5%87%8F%E6%9E%9D/" class="post-title-link" itemprop="url">组合问题优化</a>
+            <a href="/2023/03/12/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95-%E5%87%8F%E6%9E%9D/" class="post-title-link" itemprop="url">组合问题优化-减枝</a>
         </h2>
 
         <div class="post-meta">
@@ -237,7 +237,7 @@ var _hmt = _hmt || [];
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-03-12 11:07:34 / 修改时间：11:14:12" itemprop="dateCreated datePublished" datetime="2023-03-12T11:07:34+08:00">2023-03-12</time>
+              <time title="创建时间：2023-03-12 11:07:34 / 修改时间：11:50:12" itemprop="dateCreated datePublished" datetime="2023-03-12T11:07:34+08:00">2023-03-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -293,10 +293,14 @@ var _hmt = _hmt || [];
           <p><strong>回溯算法-减枝</strong></p>
 <p>题解：<a target="_blank" rel="noopener" href="https://www.programmercarl.com/0077.%E7%BB%84%E5%90%88.html#%E5%89%AA%E6%9E%9D%E4%BC%98%E5%8C%96">代码随想录 (programmercarl.com)</a></p>
 <iframe src="//player.bilibili.com/player.html?aid=542969969&bvid=BV1wi4y157er&cid=755535158&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//结果</span></span><br><span class="line">    List&lt;List&lt;Integer&gt;&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">combine</span><span class="params">(<span class="type">int</span> n , <span class="type">int</span> k)</span>&#123;</span><br><span class="line">        backTracking(n,k,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//小集合</span></span><br><span class="line">    List&lt;Integer&gt; path = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">backTracking</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k,<span class="type">int</span> startNum)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(path.size() == k)&#123;</span><br><span class="line">            result.add(<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(path));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> startNum;i &lt;= n - (k - path.size()) + <span class="number">1</span>; i++) &#123;</span><br><span class="line">            path.add(i);</span><br><span class="line">            backTracking(n,k    ,i + <span class="number">1</span>);</span><br><span class="line">            path.remove(path.size() - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/12/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95-%E5%87%8F%E6%9E%9D/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
