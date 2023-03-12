@@ -7,7 +7,7 @@ http://littlego-d.github.io/about/index.html
 http://littlego-d.github.io/music/index.html
 http://littlego-d.github.io/tags/index.html
 http://littlego-d.github.io/
-http://littlego-d.github.io/tags/%E6%97%A5%E5%BF%97/
 http://littlego-d.github.io/tags/java/
-http://littlego-d.github.io/categories/%E5%BF%83%E6%83%85/
+http://littlego-d.github.io/tags/%E6%97%A5%E5%BF%97/
 http://littlego-d.github.io/categories/%E7%AE%97%E6%B3%95/
+http://littlego-d.github.io/categories/%E5%BF%83%E6%83%85/
